@@ -127,3 +127,11 @@ STRIPE_PUBLIC_KEY = 'pk_test_51Shnsp72SZK6wCctg59vrwsgFI4QE4ZUQQvb4NUnyxWAOslx3H
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'noreply@moviebooking.com'
+
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+
