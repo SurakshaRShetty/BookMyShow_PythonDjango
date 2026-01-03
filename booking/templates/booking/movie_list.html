@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Movie Booking</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  </head>
+  <body>
+    <h1>Now Showing Movies</h1>
+
+    <form method="get">
+      <label>Genre:</label>
+      <select name="genre">
+        <option value="">All</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+      </select>
+
+      <label>Language:</label>
+      <select name="language">
+        <option value="">All</option>
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Tamil">Tamil</option>
+      </select>
+
+      <button type="submit">Filter</button>
+    </form>
+
+    <hr />
+
+    {% for movie in movies %}
+    <h2>
+      <a href="/movie/{{ movie.id }}/"> {{ movie.title }} </a>
+    </h2>
+
+    <p><b>Genre:</b> {{ movie.genre }}</p>
+    <p><b>Language:</b> {{ movie.language }}</p>
+    <p>{{ movie.description }}</p>
+    <hr />
+    {% empty %}
+    <p>No movies found.</p>
+    {% endfor %}
+  </body>
+</html>

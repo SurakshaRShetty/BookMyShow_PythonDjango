@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ movie.title }}</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+  </head>
+  <body>
+    <h1>{{ movie.title }}</h1>
+
+    <p><b>Genre:</b> {{ movie.genre }}</p>
+    <p><b>Language:</b> {{ movie.language }}</p>
+    <p>{{ movie.description }}</p>
+
+    <h2>Watch Trailer</h2>
+    <iframe
+      width="560"
+      height="315"
+      src="{{ movie.trailer_url }}"
+      frameborder="0"
+      allowfullscreen
+    >
+    </iframe>
+
+    <h2>Select Seats</h2>
+
+    <div>
+      {% for seat in seats %} {% if seat.id in reserved_seat_ids %}
+      <a href="{% url 'reserve_seat' seat.id %}">
+        <button style="background: red; color: white">
+          {{ seat.seat_number }} (Selected)
+        </button>
+      </a>
+
+      {% elif seat.is_booked %}
+      <button disabled style="background: gray; color: white">
+        {{ seat.seat_number }} (Booked)
+      </button>
+
+      {% else %}
+      <a href="{% url 'reserve_seat' seat.id %}">
+        <button style="background: green; color: white">
+          {{ seat.seat_number }}
+        </button>
+      </a>
+      {% endif %} {% endfor %}
+    </div>
+
+    <br />
+
+    <h3>Selected Seats:</h3>
+    <ul>
+      {% for seat_id in reserved_seat_ids %}
+      <li>Seat ID: {{ seat_id }}</li>
+      {% empty %}
+      <li>No seats selected</li>
+      {% endfor %}
+    </ul>
+
+    <br />
+
+    {% if reserved_seat_ids %}
+    <a href="{% url 'pay' movie.id %}">
+      <button style="padding: 10px; font-size: 16px">
+        Pay ₹{{ total_price }}
+      </button>
+    </a>
+    {% else %}
+    <button disabled style="padding: 10px; font-size: 16px">
+      Select seats to pay
+    </button>
+    {% endif %}
+
+    <br /><br />
+    <a href="/">⬅ Back to Movies</a>
+  </body>
+</html>

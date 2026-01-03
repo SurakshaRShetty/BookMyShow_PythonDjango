@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Dashboard</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  </head>
+  <body>
+    <h1>📊 Admin Dashboard</h1>
+
+    <h2>💰 Total Revenue</h2>
+    <p>₹{{ total_revenue }}</p>
+
+    <h2>🔥 Most Popular Movie</h2>
+    {% if most_popular_movie %}
+    <p>
+      {{ most_popular_movie.movie__title }} <br />
+      Seats Booked: {{ most_popular_movie.seats_booked }}
+    </p>
+    {% else %}
+    <p>No bookings yet</p>
+    {% endif %}
+
+    <h2>🎬 Movie-wise Analytics</h2>
+
+    <table border="1" cellpadding="8">
+      <tr>
+        <th>Movie</th>
+        <th>Seats Booked</th>
+        <th>Revenue</th>
+      </tr>
+
+      {% for movie in movie_stats %}
+      <tr>
+        <td>{{ movie.movie__title }}</td>
+        <td>{{ movie.seats_booked }}</td>
+        <td>₹{{ movie.revenue }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <br />
+    <a href="/admin/">⬅ Back to Admin Panel</a>
+  </body>
+</html>
